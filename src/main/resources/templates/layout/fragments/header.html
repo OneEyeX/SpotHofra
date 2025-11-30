@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<body>
+<header th:fragment="header">
+    <nav>
+		<span th:if="${#authentication != null}">
+		    [Utilisateur : [[${#authentication.name}]]]
+		</span>
+
+        <a th:href="@{/}">Accueil</a>
+        <a th:href="@{/incidents/citoyen}">Mes incidents</a>
+        <a th:href="@{/incidents/agent}">Incidents (agent)</a>
+        <a th:href="@{/admin/rapports}">Rapports admin</a>
+        <a th:href="@{/notifications}">Notifications</a>
+        <a th:href="@{/logout}">Déconnexion</a>
+    </nav>
+    <hr/>
+</header>
+</body>
+</html>

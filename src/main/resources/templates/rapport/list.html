@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Rapports générés</h1>
+
+    <p>
+        <a th:href="@{/admin/rapports/nouveau}">+ Générer un nouveau rapport</a>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Date de génération</th>
+            <th>Période</th>
+            <th>Nb incidents</th>
+            <th>Temps moyen résolution (h)</th>
+            <th>Détail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${rapports}">
+            <td th:text="${r.titre}">Titre</td>
+            <td th:text="${#temporals.format(r.dateGeneration, 'dd/MM/yyyy HH:mm')}">Date</td>
+            <td>
+                <span th:text="${r.periodeDebut}">Début</span> -
+                <span th:text="${r.periodeFin}">Fin</span>
+            </td>
+            <td th:text="${r.nbIncidents}">0</td>
+            <td th:text="${r.tempsMoyenResolution}">0</td>
+            <td>
+                <a th:href="@{|/admin/rapports/${r.id}|}">Voir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>

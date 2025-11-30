@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Mes incidents</h1>
+
+    <p>
+        <a th:href="@{/incidents/citoyen/nouveau}">+ Signaler un nouvel incident</a>
+    </p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+            <th>Date de signalement</th>
+            <th>Détail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incident : ${incidents}">
+            <td th:text="${incident.titre}">Titre</td>
+            <td th:text="${incident.statutCourant}">Statut</td>
+            <td th:text="${incident.priorite}">Priorité</td>
+            <td th:text="${#temporals.format(incident.dateSignalement, 'dd/MM/yyyy HH:mm')}">Date</td>
+            <td>
+                <a th:href="@{|/incidents/${incident.id}|}">Voir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination very simple -->
+    <div th:if="${page}">
+        <span>Page [[${page.number + 1}]] / [[${page.totalPages}]]</span>
+    </div>
+</section>
+</body>
+</html>

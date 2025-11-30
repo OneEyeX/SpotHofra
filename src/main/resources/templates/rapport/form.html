@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Générer un rapport</h1>
+
+    <form th:action="@{/admin/rapports}" method="post">
+        <div>
+            <label>Date de début</label>
+            <input type="date" name="debut" required/>
+        </div>
+
+        <div>
+            <label>Date de fin</label>
+            <input type="date" name="fin" required/>
+        </div>
+
+        <button type="submit">Générer</button>
+    </form>
+
+    <p>
+        <a th:href="@{/admin/rapports}">Retour à la liste</a>
+    </p>
+</section>
+</body>
+</html>

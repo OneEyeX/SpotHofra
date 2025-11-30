@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1 th:text="${incident.titre}">Titre de l'incident</h1>
+
+    <p><strong>Description :</strong> <span th:text="${incident.description}">Desc</span></p>
+    <p><strong>Statut :</strong> <span th:text="${incident.statutCourant}">Statut</span></p>
+    <p><strong>Priorité :</strong> <span th:text="${incident.priorite}">Priorité</span></p>
+    <p><strong>Adresse :</strong> <span th:text="${incident.adresse}">Adresse</span></p>
+    <p><strong>Date de signalement :</strong> <span th:text="${#temporals.format(incident.dateSignalement, 'dd/MM/yyyy HH:mm')}">Date</span></p>
+
+    <h2>Photos</h2>
+    <div th:if="${#lists.isEmpty(photos)}">
+        <p>Aucune photo.</p>
+    </div>
+    <div th:if="${!#lists.isEmpty(photos)}">
+        <ul>
+            <li th:each="photo : ${photos}">
+                <img th:src="@{|/uploads/${photo.nomFichier}|}" alt="photo incident" style="max-width: 200px;">
+            </li>
+        </ul>
+    </div>
+
+    <h2>Historique des statuts</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Ancien statut</th>
+            <th>Nouveau statut</th>
+            <th>Date</th>
+            <th>Commentaire</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="h : ${historique}">
+            <td th:text="${h.ancienStatut}">Ancien</td>
+            <td th:text="${h.nouveauStatut}">Nouveau</td>
+            <td th:text="${#temporals.format(h.dateChangement, 'dd/MM/yyyy HH:mm')}">Date</td>
+            <td th:text="${h.commentaire}">Commentaire</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a th:href="@{/incidents/citoyen}">Retour à mes incidents</a>
+    </p>
+</section>
+</body>
+</html>

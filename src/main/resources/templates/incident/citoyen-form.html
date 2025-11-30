@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Signaler un incident</h1>
+
+    <form th:action="@{/incidents/citoyen}" th:object="${incident}" method="post">
+        <div>
+            <label>Titre</label>
+            <input type="text" th:field="*{titre}" required/>
+        </div>
+
+        <div>
+            <label>Description</label>
+            <textarea th:field="*{description}" rows="4" required></textarea>
+        </div>
+
+        <div>
+            <label>Catégorie</label>
+            <select name="categorieId" required>
+                <option th:each="cat : ${categories}"
+                        th:value="${cat.id}"
+                        th:text="${cat.libelle}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label>Quartier</label>
+            <select name="quartierId" required>
+                <option th:each="q : ${quartiers}"
+                        th:value="${q.id}"
+                        th:text="${q.nom}">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label>Adresse (optionnelle)</label>
+            <input type="text" th:field="*{adresse}"/>
+        </div>
+
+        <div>
+            <label>Latitude (optionnelle)</label>
+            <input type="number" step="0.000001" th:field="*{latitude}"/>
+        </div>
+
+        <div>
+            <label>Longitude (optionnelle)</label>
+            <input type="number" step="0.000001" th:field="*{longitude}"/>
+        </div>
+
+        <button type="submit">Envoyer le signalement</button>
+    </form>
+
+    <p>
+        <a th:href="@{/incidents/citoyen}">Retour à la liste</a>
+    </p>
+</section>
+</body>
+</html>

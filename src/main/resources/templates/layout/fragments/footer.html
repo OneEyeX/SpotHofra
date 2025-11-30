@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<body>
+<footer th:fragment="footer">
+    <hr/>
+    <p>&copy; <span th:text="${#dates.year(#dates.createNow())}">2025</span> SpotHofra - Ville intelligente</p>
+</footer>
+</body>
+</html>

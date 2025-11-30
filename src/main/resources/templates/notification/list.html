@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Mes notifications</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Message</th>
+            <th>Type</th>
+            <th>Canal</th>
+            <th>Lu</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notif : ${notifications}">
+            <td th:text="${#temporals.format(notif.dateEnvoi, 'dd/MM/yyyy HH:mm')}">Date</td>
+            <td th:text="${notif.message}">Message</td>
+            <td th:text="${notif.type}">Type</td>
+            <td th:text="${notif.canal}">Canal</td>
+            <td th:text="${notif.lu}">Lu</td>
+            <td>
+                <form th:if="${!notif.lu}" th:action="@{|/notifications/${notif.id}/lu|}" method="post">
+                    <button type="submit">Marquer comme lue</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${page}">
+        <span>Page [[${page.number + 1}]] / [[${page.totalPages}]]</span>
+    </div>
+</section>
+</body>
+</html>

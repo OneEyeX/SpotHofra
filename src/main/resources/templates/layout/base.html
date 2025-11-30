@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle} ?: 'SpotHofra - Ville intelligente'">SpotHofra - Ville intelligente</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body th:fragment="layout(content)">
+<header th:replace="layout/fragments/header :: header"></header>
+
+<main class="container">
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
+
+    <div th:insert="${content}"></div>
+</main>
+
+<footer th:replace="layout/fragments/footer :: footer"></footer>
+</body>
+</html>

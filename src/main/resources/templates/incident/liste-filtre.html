@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Incidents par statut</h1>
+
+    <form th:action="@{/incidents/filtre}" method="get">
+        <label>Statut :</label>
+        <select name="statut">
+            <option th:each="s : ${statuts}"
+                    th:value="${s}"
+                    th:text="${s}"
+                    th:selected="${s == statutSelectionne}">
+            </option>
+        </select>
+        <button type="submit">Filtrer</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Quartier</th>
+            <th>Catégorie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incident : ${incidents}">
+            <td th:text="${incident.titre}">Titre</td>
+            <td th:text="${incident.statutCourant}">Statut</td>
+            <td th:text="${incident.quartier.nom}">Quartier</td>
+            <td th:text="${incident.categorie.libelle}">Catégorie</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${page}">
+        <span>Page [[${page.number + 1}]] / [[${page.totalPages}]]</span>
+    </div>
+</section>
+</body>
+</html>

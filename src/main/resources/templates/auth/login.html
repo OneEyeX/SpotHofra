@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Connexion</h1>
+
+    <!-- 🔴 Message si échec d'authentification -->
+    <div th:if="${param.error}">
+        <p style="color:red;">Email ou mot de passe incorrect.</p>
+    </div>
+
+    <!-- 🟢 Message si déconnexion -->
+    <div th:if="${param.logout}">
+        <p style="color:green;">Vous avez été déconnecté.</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div>
+            <label for="username">Email</label>
+            <input type="text" id="username" name="username" required/>
+        </div>
+
+        <div>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required/>
+        </div>
+
+        <button type="submit">Se connecter</button>
+    </form>
+
+    <p>
+        Pas encore de compte ?
+        <a th:href="@{/register}">Créer un compte citoyen</a>
+    </p>
+</section>
+</body>
+</html>

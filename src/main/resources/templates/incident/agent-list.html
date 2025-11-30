@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr"
+      th:replace="layout/base :: layout(~{::body})">
+<body>
+<section>
+    <h1>Incidents assignés / à prendre en charge</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Citoyen</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="incident : ${incidents}">
+            <td th:text="${incident.titre}">Titre</td>
+            <td th:text="${incident.citoyen.email}">Citoyen</td>
+            <td th:text="${incident.statutCourant}">Statut</td>
+            <td th:text="${incident.priorite}">Priorité</td>
+            <td>
+                <a th:href="@{|/incidents/${incident.id}|}">Voir</a>
+                <form th:action="@{|/incidents/${incident.id}/assigner|}" method="post" style="display:inline">
+                    <button type="submit">M'assigner</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${page}">
+        <span>Page [[${page.number + 1}]] / [[${page.totalPages}]]</span>
+    </div>
+</section>
+</body>
+</html>
